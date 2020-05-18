@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}{{ page_title is defined ? page_title ~ ' | ' }}symfony{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset("/images/favicon.png") }}">
+    <link rel="shortcut icon" href="{{ asset("/images/favicon.png") }}">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+        <link rel="stylesheet" href="{{ asset("/css/custom.css") }}">
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    {% block navbar %}{% endblock navbar %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-dark sidebar" style="padding-top: 3%">
+
+                {% block sidebar %}{% endblock sidebar %}
+
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 3%">
+
+                {% block body %}{% endblock %}
+
+            </main>
+        </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="{{ asset("/js/custom.js") }}"></script>
+</body>
+</html>

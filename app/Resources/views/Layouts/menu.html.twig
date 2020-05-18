@@ -1,0 +1,27 @@
+{% trans_default_domain 'menu-footer' %}
+
+{% block menu %}
+
+    <!-- Header -->
+    <header id="header" class="{% if 'portfolios' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}body-portfolio-page{% elseif 'job' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}body-career-page{% elseif 'contact' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}body-contact-page{% else %}body-index{% endif %}">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <div class="collapse navbar-collapse navbar-collapsed-style">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('fos_user_registration_register') }}">REDISTER</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('fos_user_security_login') }}">LOGIN</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+{% endblock menu %}

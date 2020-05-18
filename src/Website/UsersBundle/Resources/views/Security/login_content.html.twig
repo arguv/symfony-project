@@ -1,0 +1,33 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="jumbotron vertical-center centered-block">
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token('authenticate') %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+        {% endif %}
+
+    <div class="form-group">
+        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">{{ 'security.login.password'|trans }}</label>
+        <input class="form-control" type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+    </div>
+
+    <div class="form-group">
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    /
+        <a class="reset_pass" href="{{ path('fos_user_resetting_request') }}">{{ 'security.login.lost_password'|trans }}</a>
+    </div>
+
+        <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </form>
+
+</div>

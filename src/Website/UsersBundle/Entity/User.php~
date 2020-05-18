@@ -1,0 +1,544 @@
+<?php
+
+namespace WebSite\UserBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * User
+ */
+class User extends BaseUser
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->shopuser = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->shop = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->adminuser = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->partneruser = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @var string
+     */
+    protected $path;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $shop;
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return User
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Add shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     *
+     * @return User
+     */
+    public function addShop(\WebSite\ShopsBundle\Entity\Shop $shop)
+    {
+        $this->shop[] = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Remove shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     */
+    public function removeShop(\WebSite\ShopsBundle\Entity\Shop $shop)
+    {
+        $this->shop->removeElement($shop);
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $shopuser;
+
+    /**
+     * Add shopuser
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopUser $shopuser
+     *
+     * @return User
+     */
+    public function addShopuser(\WebSite\ShopsBundle\Entity\ShopUser $shopuser)
+    {
+        $this->shopuser[] = $shopuser;
+
+        return $this;
+    }
+
+    /**
+     * Remove shopuser
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopUser $shopuser
+     */
+    public function removeShopuser(\WebSite\ShopsBundle\Entity\ShopUser $shopuser)
+    {
+        $this->shopuser->removeElement($shopuser);
+    }
+
+    /**
+     * Get shopuser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShopuser()
+    {
+        return $this->shopuser;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $authcode;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $refreshtoken;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $accesstoken;
+
+    /**
+     * Add authcode
+     *
+     * @param \cleverti\OAuthBundle\Entity\AuthCode $authcode
+     *
+     * @return User
+     */
+    public function addAuthcode(\cleverti\OAuthBundle\Entity\AuthCode $authcode)
+    {
+        $this->authcode[] = $authcode;
+
+        return $this;
+    }
+
+    /**
+     * Remove authcode
+     *
+     * @param \cleverti\OAuthBundle\Entity\AuthCode $authcode
+     */
+    public function removeAuthcode(\cleverti\OAuthBundle\Entity\AuthCode $authcode)
+    {
+        $this->authcode->removeElement($authcode);
+    }
+
+    /**
+     * Get authcode
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthcode()
+    {
+        return $this->authcode;
+    }
+
+    /**
+     * Add refreshtoken
+     *
+     * @param \cleverti\OAuthBundle\Entity\RefreshToken $refreshtoken
+     *
+     * @return User
+     */
+    public function addRefreshtoken(\cleverti\OAuthBundle\Entity\RefreshToken $refreshtoken)
+    {
+        $this->refreshtoken[] = $refreshtoken;
+
+        return $this;
+    }
+
+    /**
+     * Remove refreshtoken
+     *
+     * @param \cleverti\OAuthBundle\Entity\RefreshToken $refreshtoken
+     */
+    public function removeRefreshtoken(\cleverti\OAuthBundle\Entity\RefreshToken $refreshtoken)
+    {
+        $this->refreshtoken->removeElement($refreshtoken);
+    }
+
+    /**
+     * Get refreshtoken
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRefreshtoken()
+    {
+        return $this->refreshtoken;
+    }
+
+    /**
+     * Add accesstoken
+     *
+     * @param \cleverti\OAuthBundle\Entity\AccessToken $accesstoken
+     *
+     * @return User
+     */
+    public function addAccesstoken(\cleverti\OAuthBundle\Entity\AccessToken $accesstoken)
+    {
+        $this->accesstoken[] = $accesstoken;
+
+        return $this;
+    }
+
+    /**
+     * Remove accesstoken
+     *
+     * @param \cleverti\OAuthBundle\Entity\AccessToken $accesstoken
+     */
+    public function removeAccesstoken(\cleverti\OAuthBundle\Entity\AccessToken $accesstoken)
+    {
+        $this->accesstoken->removeElement($accesstoken);
+    }
+
+    /**
+     * Get accesstoken
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccesstoken()
+    {
+        return $this->accesstoken;
+    }
+
+    /**
+     * @var boolean
+     */
+    private $isSales;
+
+    /**
+     * Set isSales
+     *
+     * @param boolean $isSales
+     *
+     * @return User
+     */
+    public function setIsSales($isSales)
+    {
+        $this->isSales = $isSales;
+
+        return $this;
+    }
+
+    /**
+     * Get isSales
+     *
+     * @return boolean
+     */
+    public function getIsSales()
+    {
+        return $this->isSales;
+    }
+
+    /**
+     * @var boolean
+     */
+    private $publishedPosts;
+
+    /**
+     * Set publishedPosts
+     *
+     * @param boolean $publishedPosts
+     *
+     * @return User
+     */
+    public function setPublishedPosts($publishedPosts)
+    {
+        $this->publishedPosts = $publishedPosts;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedPosts
+     *
+     * @return boolean
+     */
+    public function getPublishedPosts()
+    {
+        return $this->publishedPosts;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userstylekey;
+
+    /**
+     * Add userstylekey
+     *
+     * @param \WebSite\ShopsBundle\Entity\Stylekeys $userstylekey
+     *
+     * @return User
+     */
+    public function addUserstylekey(\WebSite\ShopsBundle\Entity\Stylekeys $userstylekey)
+    {
+        $this->userstylekey[] = $userstylekey;
+
+        return $this;
+    }
+
+    /**
+     * Remove userstylekey
+     *
+     * @param \WebSite\ShopsBundle\Entity\Stylekeys $userstylekey
+     */
+    public function removeUserstylekey(\WebSite\ShopsBundle\Entity\Stylekeys $userstylekey)
+    {
+        $this->userstylekey->removeElement($userstylekey);
+    }
+
+    /**
+     * Get userstylekey
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserstylekey()
+    {
+        return $this->userstylekey;
+    }
+
+    /**
+     * @var string
+     */
+    private $userShop;
+
+    /**
+     * Set userShop
+     *
+     * @param string $userShop
+     *
+     * @return User
+     */
+    public function setUserShop($userShop)
+    {
+        $this->userShop = $userShop;
+
+        return $this;
+    }
+
+    /**
+     * Get userShop
+     *
+     * @return string
+     */
+    public function getUserShop()
+    {
+        return $this->userShop;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $conversationuser;
+
+    /**
+     * Add conversationuser
+     *
+     * @param \WebSite\ConversationBundle\Entity\Conversation $conversationuser
+     *
+     * @return User
+     */
+    public function addConversationuser(\WebSite\ConversationBundle\Entity\Conversation $conversationuser)
+    {
+        $this->conversationuser[] = $conversationuser;
+
+        return $this;
+    }
+
+    /**
+     * Remove conversationuser
+     *
+     * @param \WebSite\ConversationBundle\Entity\Conversation $conversationuser
+     */
+    public function removeConversationuser(\WebSite\ConversationBundle\Entity\Conversation $conversationuser)
+    {
+        $this->conversationuser->removeElement($conversationuser);
+    }
+
+    /**
+     * Get conversationuser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConversationuser()
+    {
+        return $this->conversationuser;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $adminuser;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $partneruser;
+
+    /**
+     * Add adminuser
+     *
+     * @param \WebSite\UserBundle\Entity\User $adminuser
+     *
+     * @return User
+     */
+    public function addAdminuser(\WebSite\UserBundle\Entity\User $adminuser)
+    {
+        $this->adminuser[] = $adminuser;
+
+        return $this;
+    }
+
+    /**
+     * Remove adminuser
+     *
+     * @param \WebSite\UserBundle\Entity\User $adminuser
+     */
+    public function removeAdminuser(\WebSite\UserBundle\Entity\User $adminuser)
+    {
+        $this->adminuser->removeElement($adminuser);
+    }
+
+    /**
+     * Get adminuser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdminuser()
+    {
+        return $this->adminuser;
+    }
+
+    /**
+     * Add partneruser
+     *
+     * @param \WebSite\UserBundle\Entity\User $partneruser
+     *
+     * @return User
+     */
+    public function addPartneruser(\WebSite\UserBundle\Entity\User $partneruser)
+    {
+        $this->partneruser[] = $partneruser;
+
+        return $this;
+    }
+
+    /**
+     * Remove partneruser
+     *
+     * @param \WebSite\UserBundle\Entity\User $partneruser
+     */
+    public function removePartneruser(\WebSite\UserBundle\Entity\User $partneruser)
+    {
+        $this->partneruser->removeElement($partneruser);
+    }
+
+    /**
+     * Get partneruser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPartneruser()
+    {
+        return $this->partneruser;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $notesuser;
+
+    /**
+     * Add notesuser
+     *
+     * @param \WebSite\ConversationBundle\Entity\Notes $notesuser
+     *
+     * @return User
+     */
+    public function addNotesuser(\WebSite\ConversationBundle\Entity\Notes $notesuser)
+    {
+        $this->notesuser[] = $notesuser;
+
+        return $this;
+    }
+
+    /**
+     * Remove notesuser
+     *
+     * @param \WebSite\ConversationBundle\Entity\Notes $notesuser
+     */
+    public function removeNotesuser(\WebSite\ConversationBundle\Entity\Notes $notesuser)
+    {
+        $this->notesuser->removeElement($notesuser);
+    }
+
+    /**
+     * Get notesuser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotesuser()
+    {
+        return $this->notesuser;
+    }
+
+}

@@ -10,7 +10,9 @@ parameters:
 
 framework:
     #esi: ~
+    translator: ~
     #translator: { fallbacks: ['%locale%'] }
+    #translator: { paths: '%kernel.project_dir%/translations' }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -28,6 +30,8 @@ framework:
     fragments: ~
     http_method_override: true
     assets: ~
+    templating:
+        engines: ['twig']
     php_errors:
         log: true
 
@@ -35,6 +39,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    paths:
+        '%kernel.project_dir%/app/Resources/views/Layouts/': common_layout
 
 # Doctrine Configuration
 doctrine:
@@ -68,6 +74,28 @@ swiftmailer:
     encryption: ssl
     auth_mode: login
     spool: { type: memory }
+
+# FOSUser Configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Website\UsersBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address: "support@site.com"
+        sender_name: "support"
+    registration:
+        form:
+            type: Website\UsersBundle\Form\RegistrationFormType
+        confirmation:
+            template:   '@FOSUser/Registration/email.txt.twig'
+            enabled: true
+    resetting:
+        email:
+            from_email:
+                address: "info@site.com"
+                sender_name: "support"
 
 sensio_framework_extra:
    router:

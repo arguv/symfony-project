@@ -1,0 +1,28 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block sidebar %}
+    <div class="sidebar-sticky">
+
+        <ul class="nav flex-column main_item main_item" style="height: -webkit-fill-available;">
+
+            <li class="nav-item sub_item {% if 'profile' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}clickedItem{% endif %}">
+
+                <a class="nav-link" href="javascript:void(0);"><i class="fa fa-user"></i> Profile</a>
+
+                <ul class="child_item" {% if 'profile' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                    <li>
+                        <a href="{{ asset("/profile") }}"> <i class="fas fa-arrow-circle-right"></i> Show Profile</a>
+                    </li>
+                </ul>
+
+                <ul class="child_item" {% if 'profile' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                    <li>
+                        <a href="{{ asset("/profile/edit") }}"><i class="fas fa-arrow-circle-right"></i> Edit Profile</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+
+    </div>
+{% endblock sidebar %}

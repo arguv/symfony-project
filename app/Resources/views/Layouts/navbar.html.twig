@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block navbar %}
+
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><i class="fas fa-share-square"></i> Main Page</a>
+
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{{ path('fos_user_security_logout') }}"><i class="fas fa-sign-out-alt"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock navbar %}

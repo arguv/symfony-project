@@ -1,3 +1,48 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+index:
+    resource: "@WebsiteIndexBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+# FOSUserBundle
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_resseting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+
+fos_user_registration_register:
+    path: /register/
+    defaults: { _controller: WebsiteUsersBundle:Registration:register }
+
+fos_user_registration_check_email:
+    path: /register/check-email
+    defaults: { _controller: WebsiteUsersBundle:Registration:checkEmail }
+
+fos_user_registration_confirm:
+    path: /register/confirm/{token}
+    defaults: { _controller: WebsiteUsersBundle:Registration:confirm }
+
+fos_user_registration_confirmed:
+    path: /register/confirmed
+    defaults: { _controller: WebsiteUsersBundle:Registration:confirmed }
+
+fos_user_security_login:
+    path: /login
+    defaults: { _controller: WebsiteUsersBundle:Login:login }
+
+fos_user_security_check:
+    path: /login_check
+    defaults: { _controller: FOSUserBundle:Login:check }
+    methods: [POST]
+
+fos_user_security_logout:
+    path: /logout
+    defaults: { _controller: FOSUserBundle:Login:logout }
