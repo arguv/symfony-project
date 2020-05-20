@@ -1,0 +1,876 @@
+<?php
+
+namespace WebSite\ShopsBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * Shop
+ */
+class Shop
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $shoptag;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $incloud;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $feedUrl;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $separatedSign;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $category;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $nameOfCategory;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $cronjobInterval;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $cpc;
+
+    /**
+     * @var string|null
+     *
+     */
+    private $mapping;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastCronUpdate;
+
+    /**
+     * @var integer
+     */
+    private $zumshop;
+
+    /**
+     * @var string
+     */
+    private $address;
+
+
+    /*********************/
+    /***** relations *****/
+    /*********************/
+
+    /**
+     * @var \WebSite\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $portal;
+
+    /**
+     *
+     */
+    private $shopportal;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $shopuser;
+
+    /** @var bool */
+    private $quantityAvailability;
+
+    /** @var string */
+    private $productIdentCombination;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->portal = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->shopportal = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @return int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Shop
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set shoptag
+     *
+     * @param string $shoptag
+     *
+     * @return Shop
+     */
+    public function setShoptag($shoptag)
+    {
+        $this->shoptag = $shoptag;
+
+        return $this;
+    }
+
+    /**
+     * Get shoptag
+     *
+     * @return string
+     */
+    public function getShoptag()
+    {
+        return $this->shoptag;
+    }
+
+    /**
+     * Set incloud
+     *
+     * @param string $incloud
+     *
+     * @return Shop
+     */
+    public function setIncloud($incloud)
+    {
+        $this->incloud = $incloud;
+
+        return $this;
+    }
+
+    /**
+     * Get incloud
+     *
+     * @return string
+     */
+    public function getIncloud()
+    {
+        return $this->incloud;
+    }
+
+    /**
+     * Set feedUrl
+     *
+     * @param string $feedUrl
+     *
+     * @return Shop
+     */
+    public function setFeedUrl($feedUrl)
+    {
+        $this->feedUrl = $feedUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedUrl
+     *
+     * @return string
+     */
+    public function getFeedUrl()
+    {
+        return $this->feedUrl;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return Shop
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get nameOfCategory
+     *
+     * @return string
+     */
+    public function getNameOfCategory()
+    {
+        return $this->nameOfCategory;
+    }
+
+    /**
+     * Set nameOfCategory
+     *
+     * @param string $nameOfCategory
+     *
+     * @return Shop
+     */
+    public function setNameOfCategory($nameOfCategory)
+    {
+        $this->nameOfCategory = $nameOfCategory;
+
+        return $this;
+    }
+
+    /**
+     * Set separatedSign
+     *
+     * @param string $separatedSign
+     *
+     * @return Shop
+     */
+    public function setSeparatedSign($separatedSign)
+    {
+        $this->separatedSign = $separatedSign;
+
+        return $this;
+    }
+
+    /**
+     * Get separatedSign
+     *
+     * @return string
+     */
+    public function getSeparatedSign()
+    {
+        return $this->separatedSign;
+    }
+
+    /**
+     * Set cronjobInterval
+     *
+     * @param string $cronjobInterval
+     *
+     * @return Shop
+     */
+    public function setCronjobInterval($cronjobInterval)
+    {
+        $this->cronjobInterval = $cronjobInterval;
+
+        return $this;
+    }
+
+    /**
+     * Get cronjobInterval
+     *
+     * @return string
+     */
+    public function getCronjobInterval()
+    {
+        return $this->cronjobInterval;
+    }
+
+    /**
+     * Set cpc
+     *
+     * @param string $cpc
+     *
+     * @return Shop
+     */
+    public function setCpc($cpc)
+    {
+        $this->cpc = $cpc;
+
+        return $this;
+    }
+
+    /**
+     * Get cpc
+     *
+     * @return string
+     */
+    public function getCpc()
+    {
+        return $this->cpc;
+    }
+
+    /**
+     * Set mapping
+     *
+     * @param string $mapping
+     *
+     * @return Shop
+     */
+    public function setMapping($mapping)
+    {
+        $this->mapping = $mapping;
+
+        return $this;
+    }
+
+    /**
+     * Get mapping
+     *
+     * @return string
+     */
+    public function getMapping()
+    {
+        return $this->mapping;
+    }
+
+    /**
+     * Set lastCronUpdate
+     *
+     * @param \DateTime $lastCronUpdate
+     *
+     * @return Shop
+     */
+    public function setLastCronUpdate($lastCronUpdate)
+    {
+        $this->lastCronUpdate = $lastCronUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastCronUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastCronUpdate()
+    {
+        return $this->lastCronUpdate;
+    }
+
+    /**
+     * Set zumshop
+     *
+     * @param integer $zumshop
+     *
+     * @return Shop
+     */
+    public function setZumshop($zumshop)
+    {
+        $this->zumshop = $zumshop;
+
+        return $this;
+    }
+
+    /**
+     * Get zumshop
+     *
+     * @return integer
+     */
+    public function getZumshop()
+    {
+        return $this->zumshop;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Shop
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /*********************/
+    /***** relations *****/
+    /*********************/
+
+    /**
+     * Set user
+     *
+     * @param \WebSite\UserBundle\Entity\User $user
+     *
+     * @return Shop
+     */
+    public function setUser(\WebSite\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WebSite\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getShopportal()
+    {
+        return $this->shopportal;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $shopportal
+     */
+    public function setShopportal($shopportal)
+    {
+        $this->shopportal = $shopportal;
+    }
+
+    /**
+     * Add portal
+     *
+     * @param \WebSite\PortalsBundle\Entity\Portal $portal
+     *
+     * @return Shop
+     */
+    public function addPortal(\WebSite\PortalsBundle\Entity\Portal $portal)
+    {
+        $this->portal[] = $portal;
+
+        return $this;
+    }
+
+    /**
+     * Remove portal
+     *
+     * @param \WebSite\PortalsBundle\Entity\Portal $portal
+     */
+    public function removePortal(\WebSite\PortalsBundle\Entity\Portal $portal)
+    {
+        $this->portal->removeElement($portal);
+    }
+
+    /**
+     * Get portal
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPortal()
+    {
+        return $this->portal;
+    }
+
+    /**
+     * Add shopuser
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopUser $shopuser
+     *
+     * @return Shop
+     */
+    public function addShopuser(\WebSite\ShopsBundle\Entity\ShopUser $shopuser)
+    {
+        $this->shopuser[] = $shopuser;
+
+        return $this;
+    }
+
+    /**
+     * Remove shopuser
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopUser $shopuser
+     */
+    public function removeShopuser(\WebSite\ShopsBundle\Entity\ShopUser $shopuser)
+    {
+        $this->shopuser->removeElement($shopuser);
+    }
+
+    /**
+     * Get shopuser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShopuser()
+    {
+        return $this->shopuser;
+    }
+
+    /**
+     * Add shopportal
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopPortal $shopportal
+     *
+     * @return Shop
+     */
+    public function addShopportal(\WebSite\ShopsBundle\Entity\ShopPortal $shopportal)
+    {
+        $this->shopportal[] = $shopportal;
+
+        return $this;
+    }
+
+    /**
+     * Remove shopportal
+     *
+     * @param \WebSite\ShopsBundle\Entity\ShopPortal $shopportal
+     */
+    public function removeShopportal(\WebSite\ShopsBundle\Entity\ShopPortal $shopportal)
+    {
+        $this->shopportal->removeElement($shopportal);
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $expenses;
+
+
+    /**
+     * Add expense
+     *
+     * @param \WebSite\ExpensesBundle\Entity\Expense $expense
+     *
+     * @return Shop
+     */
+    public function addExpense(\WebSite\ExpensesBundle\Entity\Expense $expense)
+    {
+        $this->expenses[] = $expense;
+
+        return $this;
+    }
+
+    /**
+     * Remove expense
+     *
+     * @param \WebSite\ExpensesBundle\Entity\Expense $expense
+     */
+    public function removeExpense(\WebSite\ExpensesBundle\Entity\Expense $expense)
+    {
+        $this->expenses->removeElement($expense);
+    }
+
+    /**
+     * Get expenses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExpenses()
+    {
+        return $this->expenses;
+    }
+
+    /**
+     * @var string
+     */
+    private $saleFeedUrl;
+
+
+    /**
+     * Set saleFeedUrl
+     *
+     * @param string $saleFeedUrl
+     *
+     * @return Shop
+     */
+    public function setSaleFeedUrl($saleFeedUrl)
+    {
+        $this->saleFeedUrl = $saleFeedUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get saleFeedUrl
+     *
+     * @return string
+     */
+    public function getSaleFeedUrl()
+    {
+        return $this->saleFeedUrl;
+    }
+
+
+    /**
+     * @var boolean
+     */
+    private $api = false;
+
+    /**
+     * Set api
+     *
+     * @param boolean $api
+     *
+     * @return Shop
+     */
+    public function setApi($api)
+    {
+        $this->api = $api;
+
+        return $this;
+    }
+
+    /**
+     * Get api
+     *
+     * @return boolean
+     */
+    public function getApi()
+    {
+        return $this->api;
+    }
+
+	/**
+	 * @return bool
+	 */
+	public function isQuantityAvailability()
+	{
+		return $this->quantityAvailability;
+	}
+
+	/**
+	 * @param bool $quantityAvailability
+	 */
+	public function setQuantityAvailability($quantityAvailability)
+	{
+		$this->quantityAvailability = $quantityAvailability;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getProductIdentCombination()
+	{
+		return $this->productIdentCombination;
+	}
+
+	/**
+	 * @param string $productIdentCombination
+	 */
+	public function setProductIdentCombination($productIdentCombination)
+	{
+		$this->productIdentCombination = $productIdentCombination;
+	}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $csvshop;
+
+
+    /**
+     * Get quantityAvailability
+     *
+     * @return boolean
+     */
+    public function getQuantityAvailability()
+    {
+        return $this->quantityAvailability;
+    }
+
+    /**
+     * Add csvshop
+     *
+     * @param \WebSite\ShopsBundle\Entity\CsvReport $csvshop
+     *
+     * @return Shop
+     */
+    public function addCsvshop(\WebSite\ShopsBundle\Entity\CsvReport $csvshop)
+    {
+        $this->csvshop[] = $csvshop;
+
+        return $this;
+    }
+
+    /**
+     * Remove csvshop
+     *
+     * @param \WebSite\ShopsBundle\Entity\CsvReport $csvshop
+     */
+    public function removeCsvshop(\WebSite\ShopsBundle\Entity\CsvReport $csvshop)
+    {
+        $this->csvshop->removeElement($csvshop);
+    }
+
+    /**
+     * Get csvshop
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCsvshop()
+    {
+        return $this->csvshop;
+    }
+    /**
+     * @var string
+     */
+    private $atmoSaleFeedUrl;
+
+
+    /**
+     * Set atmoSaleFeedUrl
+     *
+     * @param string $atmoSaleFeedUrl
+     *
+     * @return Shop
+     */
+    public function setAtmoSaleFeedUrl($atmoSaleFeedUrl)
+    {
+        $this->atmoSaleFeedUrl = $atmoSaleFeedUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get atmoSaleFeedUrl
+     *
+     * @return string
+     */
+    public function getAtmoSaleFeedUrl()
+    {
+        return $this->atmoSaleFeedUrl;
+    }
+    /**
+     * @var string
+     */
+    private $stylekeys;
+
+
+    /**
+     * Set stylekeys
+     *
+     * @param string $stylekeys
+     *
+     * @return Shop
+     */
+    public function setStylekeys($stylekeys)
+    {
+        $this->stylekeys = $stylekeys;
+
+        return $this;
+    }
+
+    /**
+     * Get stylekeys
+     *
+     * @return string
+     */
+    public function getStylekeys()
+    {
+        return $this->stylekeys;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $outfitshop;
+
+
+    /**
+     * Add outfitshop
+     *
+     * @param \WebSite\PortalsBundle\Entity\OutfitsReport $outfitshop
+     *
+     * @return Shop
+     */
+    public function addOutfitshop(\WebSite\PortalsBundle\Entity\OutfitsReport $outfitshop)
+    {
+        $this->outfitshop[] = $outfitshop;
+
+        return $this;
+    }
+
+    /**
+     * Remove outfitshop
+     *
+     * @param \WebSite\PortalsBundle\Entity\OutfitsReport $outfitshop
+     */
+    public function removeOutfitshop(\WebSite\PortalsBundle\Entity\OutfitsReport $outfitshop)
+    {
+        $this->outfitshop->removeElement($outfitshop);
+    }
+
+    /**
+     * Get outfitshop
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOutfitshop()
+    {
+        return $this->outfitshop;
+    }
+}

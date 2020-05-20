@@ -22,6 +22,44 @@
                 </ul>
             </li>
 
+            <li class="nav-item sub_item {% if 'promotions' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}clickedItem{% endif %}">
+
+                <a class="nav-link" href="javascript:void(0);"><i class="fa fa-user"></i> Promotions</a>
+
+                <ul class="child_item" {% if 'promotions' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                    <li>
+                        <a href="{{ asset("/promotions") }}"> <i class="fas fa-arrow-circle-right"></i> Show Promotions</a>
+                    </li>
+                </ul>
+
+                {% if( is_granted("ROLE_ADMIN") == false and is_granted("ROLE_USER") ) %}
+                    <ul class="child_item" {% if 'promotions' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                        <li>
+                            <a href="{{ asset("/promotions/new") }}"><i class="fas fa-arrow-circle-right"></i> Add Promotions</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </li>
+
+            {% if( is_granted("ROLE_ADMIN") ) %}
+            <li class="nav-item sub_item {% if 'statistics' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}clickedItem{% endif %}">
+
+                <a class="nav-link" href="javascript:void(0);"><i class="fa fa-user"></i> Statistics</a>
+
+                <ul class="child_item" {% if 'statistics' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                    <li>
+                        <a href="{{ asset("/admin/statistics") }}"> <i class="fas fa-arrow-circle-right"></i> Show Statistics</a>
+                    </li>
+                </ul>
+
+                <ul class="child_item" {% if 'statistics' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                    <li>
+                        <a href="{{ asset("/admin/statistics/new") }}"><i class="fas fa-arrow-circle-right"></i> Add Statistics</a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+
         </ul>
 
     </div>

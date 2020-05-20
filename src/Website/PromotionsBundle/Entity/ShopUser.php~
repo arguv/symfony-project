@@ -1,0 +1,201 @@
+<?php
+
+namespace WebSite\ShopsBundle\Entity;
+
+/**
+ * ShopUser
+ */
+class ShopUser
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var int
+     */
+    private $userId;
+
+    /**
+     * @var int
+     */
+    private $shopId;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return ShopUser
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set shopId
+     *
+     * @param integer $shopId
+     *
+     * @return ShopUser
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * Get shopId
+     *
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return ShopUser
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+    /**
+     * @var \WebSite\ShopsBundle\Entity\Shop
+     */
+    private $shop;
+
+    /**
+     * @var \WebSite\UserBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     *
+     * @return ShopUser
+     */
+    public function setShop(\WebSite\ShopsBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \WebSite\ShopsBundle\Entity\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \WebSite\UserBundle\Entity\User $user
+     *
+     * @return ShopUser
+     */
+    public function setUser(\WebSite\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WebSite\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->shop = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Add shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     *
+     * @return ShopUser
+     */
+    public function addShop(\WebSite\ShopsBundle\Entity\Shop $shop)
+    {
+        $this->shop[] = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Remove shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     */
+    public function removeShop(\WebSite\ShopsBundle\Entity\Shop $shop)
+    {
+        $this->shop->removeElement($shop);
+    }
+}

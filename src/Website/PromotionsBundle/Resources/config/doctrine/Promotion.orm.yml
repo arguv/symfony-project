@@ -1,0 +1,26 @@
+Website\PromotionsBundle\Entity\Promotion:
+    type: entity
+    table: null
+    oneToMany:
+        promotionproduct:
+            targetEntity: Website\PromotionsBundle\Entity\PromotionProduct
+            mappedBy: promotion
+            cascade: ["persist"]
+    repositoryClass: Website\PromotionsBundle\Repository\PromotionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            column: user_id
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+
+    lifecycleCallbacks: {  }

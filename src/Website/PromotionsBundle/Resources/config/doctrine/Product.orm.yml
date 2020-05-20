@@ -1,0 +1,27 @@
+Website\PromotionsBundle\Entity\Product:
+    type: entity
+    table: null
+    oneToMany:
+        promotionproduct:
+            targetEntity: Website\PromotionsBundle\Entity\PromotionProduct
+            mappedBy: product
+            cascade: ["persist"]
+    repositoryClass: Website\PromotionsBundle\Repository\ProductRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        productArticle:
+            type: integer
+            nullable: false
+            unique: true
+            column: product_article
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+
+    lifecycleCallbacks: {  }

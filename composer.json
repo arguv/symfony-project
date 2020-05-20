@@ -5,7 +5,9 @@
     "autoload": {
         "psr-4": {
             "Website\\UsersBundle\\": "src/Website/UsersBundle",
-            "Website\\IndexBundle\\": "src/Website/IndexBundle"
+            "Website\\IndexBundle\\": "src/Website/IndexBundle",
+            "Website\\StatisticsBundle\\": "src/Website/StatisticsBundle",
+            "Website\\PromotionsBundle\\": "src/Website/PromotionsBundle"
         },
         "classmap": [
             "app/AppKernel.php",

@@ -1,0 +1,13 @@
+<?php
+
+namespace Website\StatisticsBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * Statistic
+ */
+class Statistic
+{
+}

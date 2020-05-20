@@ -1,0 +1,3 @@
+promotions_promotion:
+    resource: "@WebsitePromotionsBundle/Resources/config/routing/promotion.yml"
+    prefix:   /

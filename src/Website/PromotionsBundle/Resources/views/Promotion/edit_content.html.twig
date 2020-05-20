@@ -1,0 +1,30 @@
+<h1>Edit Product</h1>
+
+{% if app.session.flashBag.has('success') %}
+    <div class="alert alert-success">
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if app.session.flashBag.has('error') %}
+    <div class="alert alert-danger">
+        {% for msg in app.session.flashBag.get('error') %}
+            {{ msg }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{{ form_start(edit_form) }}
+
+    <div class="form-group">
+        {{ form_row(edit_form.name) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(edit_form.productArticle) }}
+    </div>
+
+    <input class="btn btn-success btn-sm" type="submit" value="Update"/>
+
+{{ form_end(edit_form) }}

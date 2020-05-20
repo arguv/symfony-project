@@ -1,0 +1,32 @@
+<h1>Add New Promotion</h1>
+
+{% if app.session.flashBag.has('success') %}
+    <div class="alert alert-success">
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if app.session.flashBag.has('error') %}
+    <div class="alert alert-danger">
+        {% for msg in app.session.flashBag.get('error') %}
+            {{ msg }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form id="edit_productId" action="{{ path('promotion_new') }}" method="POST">
+
+            <span id="mainForm"></span>
+
+            <br>
+
+            <input class="btn btn-success loader-active" type="submit" value="SEND PROMOTION"/>
+        </form>
+
+        <button style="float: right;" class="btn btn-primary" onclick="addMoreField();">+ ADD MORE ID</button>
+    </div>
+</div>

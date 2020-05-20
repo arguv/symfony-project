@@ -1,0 +1,37 @@
+Website\PromotionsBundle\Entity\PromotionProduct:
+    type: entity
+    table: null
+    manyToOne:
+        promotion:
+            targetEntity: Website\PromotionsBundle\Entity\Promotion
+            inversedBy: promotionproduct
+            orphanRemoval: true
+            cascade: ["persist"]
+            joinColumn:
+                name: promotion_id
+                referencedColumnName: id
+        product:
+            targetEntity: Website\PromotionsBundle\Entity\Product
+            inversedBy: promotionproduct
+            orphanRemoval: true
+            cascade: ["persist"]
+            joinColumn:
+                name: product_id
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        note:
+            type: string
+            length: 150
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+
+    lifecycleCallbacks: {  }

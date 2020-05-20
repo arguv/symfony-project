@@ -10,12 +10,21 @@
 
                 <div class="collapse navbar-collapse navbar-collapsed-style">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('fos_user_registration_register') }}">REDISTER</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('fos_user_security_login') }}">LOGIN</a>
-                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('fos_user_security_logout') }}"><i class="fas fa-sign-out-alt"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile"><i class="fas fa-sign-in-alt"></i> In Profile</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('fos_user_registration_register') }}">REDISTER</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('fos_user_security_login') }}">LOGIN</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
 

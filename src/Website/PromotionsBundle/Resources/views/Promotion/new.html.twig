@@ -1,0 +1,13 @@
+{% extends "::base_user.html.twig" %}
+
+{% block navbar %}
+    {% include "@common_layout/navbar.html.twig" %}
+{% endblock navbar %}
+
+{% block sidebar %}
+    {% include "@common_layout/sidebar.html.twig" %}
+{% endblock sidebar %}
+
+{% block body %}
+    {% include "@WebsitePromotions/Promotion/new_content.html.twig" %}
+{% endblock body %}

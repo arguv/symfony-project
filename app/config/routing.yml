@@ -2,6 +2,13 @@ index:
     resource: "@WebsiteIndexBundle/Resources/config/routing.yml"
     prefix:   /
 
+promotions:
+    resource: "@WebsitePromotionsBundle/Resources/config/routing.yml"
+    prefix:   /promotions
+
+statistics:
+    resource: "@WebsiteStatisticsBundle/Resources/config/routing.yml"
+    prefix:   /admin/statistics
 
 # FOSUserBundle
 

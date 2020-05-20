@@ -1,0 +1,86 @@
+<?php
+
+namespace WebSite\ShopsBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * Stylekeys
+ */
+class Stylekeys
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $stylekeys;
+
+    /**
+     * @var \WebSite\UserBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set stylekeys
+     *
+     * @param string $stylekeys
+     *
+     * @return Stylekeys
+     */
+    public function setStylekeys($stylekeys)
+    {
+        $this->stylekeys = $stylekeys;
+
+        return $this;
+    }
+
+    /**
+     * Get stylekeys
+     *
+     * @return string
+     */
+    public function getStylekeys()
+    {
+        return $this->stylekeys;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \WebSite\UserBundle\Entity\User $user
+     *
+     * @return Stylekeys
+     */
+    public function setUser(\WebSite\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WebSite\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

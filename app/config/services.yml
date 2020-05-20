@@ -30,3 +30,6 @@ services:
         class: Website\UsersBundle\Form\ProfileFormType
         tags:
             - { name: "form.type", alias: "app_user_profile" }
+
+    Website\PromotionsBundle\Service\PromotionService:
+        public: true

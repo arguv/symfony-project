@@ -1,0 +1,25 @@
+Website\StatisticsBundle\Entity\Statistic:
+    type: entity
+    table: null
+    repositoryClass: Website\StatisticsBundle\Repository\StatisticRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        productArticle:
+            type: integer
+            nullable: false
+            column: product_article
+        clicks:
+            type: integer
+            options:
+                default: 0
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+
+    lifecycleCallbacks: {  }

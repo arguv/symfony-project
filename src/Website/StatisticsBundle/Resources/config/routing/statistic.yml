@@ -1,0 +1,14 @@
+statistic_index:
+    path:     /
+    defaults: { _controller: "WebsiteStatisticsBundle:Statistics:index" }
+    methods:  GET
+
+statistic_new:
+    path:     /new
+    defaults: { _controller: "WebsiteStatisticsBundle:Statistics:new" }
+    methods:  [GET, POST]
+
+statistic_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WebsiteStatisticsBundle:Statistics:edit" }
+    methods:  [GET, POST]

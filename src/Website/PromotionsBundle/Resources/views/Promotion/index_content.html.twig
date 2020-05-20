@@ -1,0 +1,71 @@
+<h1>Promotions List</h1>
+
+{% if app.session.flashBag.has('success') %}
+    <div class="alert alert-success">
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if app.session.flashBag.has('error') %}
+    <div class="alert alert-danger">
+        {% for msg in app.session.flashBag.get('error') %}
+            {{ msg }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-12">
+        {% for key, res in result %}
+
+        <div><h3>Promotion #{{ key }} ({{ res.date | date("d/m/Y") }})</h3></div>
+
+        <div class="panel-body table-responsive">
+            <table class="table table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>Note</th>
+                        <th>Statistics</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for item in res %}
+                {% if item is iterable %}
+                    <tr class="even pointer">
+                        <td class="productId">{{ item.productId }}</td>
+                        <td class="note">{{ item.note }}</td>
+                        <td>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="even pointer">
+                                        <th>Clicks</th>
+                                        <th>Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for it in item %}
+                                        {% if it is iterable %}
+                                        {% for i in it %}
+                                            <tr>
+                                                <td class="clicks">{{ i.clicks }}</td>
+                                                <td class="createdAt"><b>{{ i.statisticCreatedAt | date("d/m/Y") }}</b></td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</div>

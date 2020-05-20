@@ -1,0 +1,239 @@
+<?php
+
+namespace WebSite\ShopsBundle\Entity;
+
+/**
+ * CsvOptions
+ */
+class CsvOptions
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $shopId;
+
+    /**
+     * @var string
+     */
+    private $productName;
+
+    /**
+     * @var string
+     */
+    private $productDescription;
+
+    /**
+     * @var string
+     */
+    private $price;
+
+    /**
+     * @var string
+     */
+    private $previousPrice;
+
+    /**
+     * @var string
+     */
+    private $deepLink;
+
+    /**
+     * @var string
+     */
+    private $productId;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @return int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Set shopId
+     *
+     * @param string $shopId
+     *
+     * @return CsvOptions
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * Get shopId
+     *
+     * @return string
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
+    }
+
+    /**
+     * Set productName
+     *
+     * @param string $productName
+     *
+     * @return CsvOptions
+     */
+    public function setProductName($productName)
+    {
+        $this->productName = $productName;
+
+        return $this;
+    }
+
+    /**
+     * Get productName
+     *
+     * @return string
+     */
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+
+    /**
+     * Set productDescription
+     *
+     * @param string $productDescription
+     *
+     * @return CsvOptions
+     */
+    public function setProductDescription($productDescription)
+    {
+        $this->productDescription = $productDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get productDescription
+     *
+     * @return string
+     */
+    public function getProductDescription()
+    {
+        return $this->productDescription;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return CsvOptions
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set previousPrice
+     *
+     * @param string $previousPrice
+     *
+     * @return CsvOptions
+     */
+    public function setPreviousPrice($previousPrice)
+    {
+        $this->previousPrice = $previousPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get previousPrice
+     *
+     * @return string
+     */
+    public function getPreviousPrice()
+    {
+        return $this->previousPrice;
+    }
+
+    /**
+     * Set deepLink
+     *
+     * @param string $deepLink
+     *
+     * @return CsvOptions
+     */
+    public function setDeepLink($deepLink)
+    {
+        $this->deepLink = $deepLink;
+
+        return $this;
+    }
+
+    /**
+     * Get deepLink
+     *
+     * @return string
+     */
+    public function getDeepLink()
+    {
+        return $this->deepLink;
+    }
+
+    /**
+     * Set productId
+     *
+     * @param string $productId
+     *
+     * @return CsvOptions
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
+
+    /**
+     * Get productId
+     *
+     * @return string
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+}

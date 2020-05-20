@@ -1,0 +1,13 @@
+<?php
+
+namespace Website\PromotionsBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * PromotionProduct
+ */
+class PromotionProduct
+{
+}

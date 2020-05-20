@@ -1,0 +1,13 @@
+<?php
+
+namespace WebSite\CountriesBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * Country
+ */
+class Country
+{
+}

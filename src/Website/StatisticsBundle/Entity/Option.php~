@@ -1,0 +1,115 @@
+<?php
+
+namespace WebSite\OptionsBundle\Entity;
+
+use Symfony\Component\BrowserKit\Request;
+
+
+/**
+ * Option
+ */
+class Option
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var boolean
+     */
+    private $typeData = 0;
+
+    /**
+     * @var string
+     */
+    private $keyData;
+
+    /**
+     * @var string
+     */
+    private $valueData;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set typeData
+     *
+     * @param boolean $typeData
+     *
+     * @return Option
+     */
+    public function setTypeData($typeData)
+    {
+        $this->typeData = $typeData;
+
+        return $this;
+    }
+
+    /**
+     * Get typeData
+     *
+     * @return boolean
+     */
+    public function getTypeData()
+    {
+        return $this->typeData;
+    }
+
+    /**
+     * Set keyData
+     *
+     * @param string $keyData
+     *
+     * @return Option
+     */
+    public function setKeyData($keyData)
+    {
+        $this->keyData = $keyData;
+
+        return $this;
+    }
+
+    /**
+     * Get keyData
+     *
+     * @return string
+     */
+    public function getKeyData()
+    {
+        return $this->keyData;
+    }
+
+    /**
+     * Set valueData
+     *
+     * @param string $valueData
+     *
+     * @return Option
+     */
+    public function setValueData($valueData)
+    {
+        $this->valueData = $valueData;
+
+        return $this;
+    }
+
+    /**
+     * Get valueData
+     *
+     * @return string
+     */
+    public function getValueData()
+    {
+        return $this->valueData;
+    }
+}

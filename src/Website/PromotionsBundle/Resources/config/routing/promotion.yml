@@ -1,0 +1,14 @@
+promotion_index:
+    path:     /
+    defaults: { _controller: "WebsitePromotionsBundle:Promotions:index" }
+    methods:  GET
+
+promotion_new:
+    path:     /new
+    defaults: { _controller: "WebsitePromotionsBundle:Promotions:new" }
+    methods:  [GET, POST]
+
+promotion_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WebsitePromotionsBundle:Promotions:edit" }
+    methods:  [GET, POST]

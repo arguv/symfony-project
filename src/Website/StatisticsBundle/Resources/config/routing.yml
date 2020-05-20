@@ -1,0 +1,3 @@
+statistics_statistic:
+    resource: "@WebsiteStatisticsBundle/Resources/config/routing/statistic.yml"
+    prefix:   /

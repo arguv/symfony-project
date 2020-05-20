@@ -1,0 +1,170 @@
+<?php
+
+namespace WebSite\ShopsBundle\Entity;
+
+/**
+ * ShopPortal
+ */
+class ShopPortal
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var int
+     */
+    private $shopId;
+
+    /**
+     * @var int
+     */
+    private $portalId;
+
+    /**
+     * @var string
+     */
+    private $shopTag;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set shopId
+     *
+     * @param integer $shopId
+     *
+     * @return ShopPortal
+     */
+    public function setShopId($shopId)
+    {
+        $this->shopId = $shopId;
+
+        return $this;
+    }
+
+    /**
+     * Get shopId
+     *
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
+    }
+
+    /**
+     * Set portalId
+     *
+     * @param integer $portalId
+     *
+     * @return ShopPortal
+     */
+    public function setPortalId($portalId)
+    {
+        $this->portalId = $portalId;
+
+        return $this;
+    }
+
+    /**
+     * Get portalId
+     *
+     * @return int
+     */
+    public function getPortalId()
+    {
+        return $this->portalId;
+    }
+
+    /**
+     * Set shopTag
+     *
+     * @param string $shopTag
+     *
+     * @return ShopPortal
+     */
+    public function setShopTag($shopTag)
+    {
+        $this->shopTag = $shopTag;
+
+        return $this;
+    }
+
+    /**
+     * Get shopTag
+     *
+     * @return string
+     */
+    public function getShopTag()
+    {
+        return $this->shopTag;
+    }
+    /**
+     * @var \WebSite\ShopsBundle\Entity\Shop
+     */
+    private $shop;
+
+    /**
+     * @var \WebSite\PortalsBundle\Entity\Portal
+     */
+    private $portal;
+
+
+    /**
+     * Set shop
+     *
+     * @param \WebSite\ShopsBundle\Entity\Shop $shop
+     *
+     * @return ShopPortal
+     */
+    public function setShop(\WebSite\ShopsBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \WebSite\ShopsBundle\Entity\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Set portal
+     *
+     * @param \WebSite\PortalsBundle\Entity\Portal $portal
+     *
+     * @return ShopPortal
+     */
+    public function setPortal(\WebSite\PortalsBundle\Entity\Portal $portal = null)
+    {
+        $this->portal = $portal;
+
+        return $this;
+    }
+
+    /**
+     * Get portal
+     *
+     * @return \WebSite\PortalsBundle\Entity\Portal
+     */
+    public function getPortal()
+    {
+        return $this->portal;
+    }
+}
