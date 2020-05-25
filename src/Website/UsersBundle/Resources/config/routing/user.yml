@@ -1,0 +1,9 @@
+users_index:
+    path:   /
+    defaults: { _controller: WebsiteUsersBundle:User:index }
+    methods:  GET
+
+users_edit:
+    path:   /{id}/edit
+    defaults: { _controller: WebsiteUsersBundle:User:edit }
+    methods:  [GET, POST]

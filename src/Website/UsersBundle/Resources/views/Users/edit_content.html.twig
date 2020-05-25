@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Edit User</h1>
+</div>
+
+{% if app.session.flashBag.has('success') %}
+    <div class="alert alert-success">
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if app.session.flashBag.has('error') %}
+    <div class="alert alert-danger">
+        {% for msg in app.session.flashBag.get('error') %}
+            {{ msg }}<br>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div id="edit-profile">
+    <div class="col-sm-5">
+        {{ form_start(form, {'action': path('users_edit', {'id':  user.id }) }) }}
+            <div class="form-group">
+                {{ form_row(form.username, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="update" />
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

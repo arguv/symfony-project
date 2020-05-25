@@ -22,6 +22,19 @@
                 </ul>
             </li>
 
+            {% if( is_granted("ROLE_ADMIN") ) %}
+                <li class="nav-item sub_item {% if 'users' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}clickedItem{% endif %}">
+
+                    <a class="nav-link" href="javascript:void(0);"><i class="fa fa-user"></i> Users</a>
+
+                    <ul class="child_item" {% if 'users' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                        <li>
+                            <a href="{{ asset("/admin/users") }}"> <i class="fas fa-arrow-circle-right"></i> Show Users</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+
             <li class="nav-item sub_item {% if 'promotions' in path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}clickedItem{% endif %}">
 
                 <a class="nav-link" href="javascript:void(0);"><i class="fa fa-user"></i> Promotions</a>

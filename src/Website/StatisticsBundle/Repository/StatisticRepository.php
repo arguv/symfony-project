@@ -10,32 +10,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class StatisticRepository extends \Doctrine\ORM\EntityRepository
 {
-
-    /*
-    **
-    * @param $id
-    * @param $startdate
-    * @return array|null
-    */
-    public function getStatisticsById($id, $startdate)
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery("
-              SELECT st
-              FROM 'Website\StatisticsBundle\Entity\Statistic' AS st 
-              WHERE st.createdAt >= :startdate AND st.productArticle = :id
-              ORDER BY st.createdAt DESC"
-        );
-
-        $query->setParameters(array('id' => $id, 'startdate' => $startdate->format('Y-m-d') ));
-
-        try {
-            return $query->getScalarResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
-            return null;
-        }
-    }
-
     /*
     **
     * @param $id
@@ -43,17 +17,27 @@ class StatisticRepository extends \Doctrine\ORM\EntityRepository
     * @param $enddate
     * @return array|null
     */
-    public function getStatisticsByIdAndDate($id, $startdate, $enddate)
+    public function getStatisticsByIdAndDate($id, $startdate, $enddate = null)
     {
+        if (null != $enddate) {
+            $subquery = "AND st.createdAt <= :enddate";
+        } else {
+            $subquery = "";
+        }
+
         $em = $this->getEntityManager();
         $query = $em->createQuery("
               SELECT st
               FROM 'Website\StatisticsBundle\Entity\Statistic' AS st 
-              WHERE (st.createdAt >= :startdate AND st.createdAt <= :enddate) AND st.productArticle = :id
+              WHERE st.productArticle = :id AND st.createdAt >= :startdate ".$subquery."
               ORDER BY st.createdAt DESC"
         );
 
-        $query->setParameters(array('id' => $id, 'startdate' => $startdate->format('Y-m-d'), 'enddate' => $enddate->format('Y-m-d') ));
+        if (null != $enddate) {
+            $query->setParameters(array('id' => $id, 'startdate' => $startdate, 'enddate' => $enddate ));
+        } else {
+            $query->setParameters(array('id' => $id, 'startdate' => $startdate ));
+        }
 
         try {
             return $query->getScalarResult();
