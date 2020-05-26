@@ -2,6 +2,7 @@
 
 namespace Website\PromotionsBundle\Controller;
 
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,9 @@ use Website\PromotionsBundle\Entity\PromotionProduct;
 use Website\PromotionsBundle\Service\PromotionService;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\DependencyInjection\ContainerAware;
+
+
 
 class PromotionsController extends Controller
 {
@@ -24,7 +28,6 @@ class PromotionsController extends Controller
      */
     public function indexAction()
     {
-        $session = new Session();
         $result = [];
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -36,45 +39,17 @@ class PromotionsController extends Controller
             } else {
                 $id = $user->getId();
             }
+
             $promotions = $em->getRepository('WebsitePromotionsBundle:Promotion')->getPromotionsWithProductsWithStatistics($id);
 
-            $promotions = $promotionService->getDataStructure($promotions);
-
-            foreach ($promotions as $item) {
-
-                if (isset($item["prevDate"])) {
-                    $prevdate = $item["prevDate"]->format('Y-m-d');
-                } else {
-                    $prevdate = null;
-                }
-                $startdate = $item["prm_createdAt"]->format('Y-m-d');
-                $statistics = $em->getRepository('WebsiteStatisticsBundle:Statistic')->getStatisticsByIdAndDate($item["prd_productArticle"], $startdate, $prevdate);
-
-                $stat = [];
-                foreach ($statistics as $data) {
-                    $stat[] = [
-                        "productId" => $data["st_productArticle"],
-                        "clicks" => $data["st_clicks"],
-                        "statisticCreatedAt" => $data["st_createdAt"]
-                    ];
-                }
-
-                $result[$item["prm_id"]]["date"] = $item["prm_createdAt"];
-                $result[$item["prm_id"]][] =
-                    [
-                        "promotionId" => $item["prm_id"],
-                        "promotionCreatedAt" => $item["prm_createdAt"],
-                        "note" => $item["pp_note"],
-                        "productId" => $item["prd_productArticle"],
-                        "date" => $stat
-                    ];
-            }
+            $result = $promotionService->getDataStructure($promotions);
 
             return $this->render('WebsitePromotionsBundle:Promotion:index.html.twig', array(
                 "result" => $result,
             ));
+
         } catch (\Exception $e) {
-            $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+            $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
             return new RedirectResponse($this->generateUrl('promotion_index'));
         }
     }
@@ -85,7 +60,6 @@ class PromotionsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $session = new Session();
         $user = $this->getUser();
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
@@ -96,7 +70,6 @@ class PromotionsController extends Controller
             try {
                 $promotion = new Promotion();
                 $promotion->setUserId($user->getId());
-                $promotion->setCreatedAt(new \DateTime());
                 $em->persist($promotion);
 
                 foreach ($data as $item) {
@@ -104,13 +77,11 @@ class PromotionsController extends Controller
                     if (null == $product) {
                         $product = new Product();
                         $product->setProductArticle((int)$item['productId']);
-                        $product->setCreatedAt(new \DateTime());
                         $em->persist($product);
                     }
 
                     $promotionProduct = new PromotionProduct();
                     $promotionProduct->setNote($item['note']);
-                    $promotionProduct->setCreatedAt(new \DateTime());
                     $promotionProduct->setProduct($product);
                     $promotionProduct->setPromotion($promotion);
                     $em->persist($promotionProduct);
@@ -118,14 +89,14 @@ class PromotionsController extends Controller
                 $em->flush();
                 $em->getConnection()->commit();
 
-                $session->getFlashBag()->add('success', 'Successfuly created');
+                $this->get('session')->getFlashBag()->add('success', 'Successfuly created');
                 return new RedirectResponse($this->generateUrl('promotion_index'));
             } catch (\Exception $e) {
 
                 $em->getConnection()->rollback();
                 $em->close();
 
-                $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+                $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
                 return new RedirectResponse($this->generateUrl('promotion_index'));
             }
         }
@@ -139,17 +110,16 @@ class PromotionsController extends Controller
      * Validation Form.
      *
      */
-    private function validationForm($datas,$request)
+    private function validationForm($datas, $request)
     {
         $violations = null;
-        $session = new Session();
         $validator = $this->get('validator');
 
         foreach ($datas as $data) {
             $input = ['productId' => (int)$data["productId"], 'note' => $data["note"]];
 
             $constraints = new Assert\Collection([
-                'productId' => [new Assert\Regex(array('pattern' => '/^[0-9]\d*$/','message' => 'Please use only positive numbers.'))],
+                'productId' => [new Assert\Regex(array('pattern' => '/^[0-9]\d*$/', 'message' => 'Please use only positive numbers.'))],
                 'note' => [new Assert\NotNull(), new Assert\Type('string')],
             ]);
 
@@ -165,14 +135,12 @@ class PromotionsController extends Controller
                 }
 
                 $referer = $request->headers->get('referer');
-                $session->getFlashBag()->add('error', $errorMessages);
+                $this->get('session')->getFlashBag()->add('error', $errorMessages);
                 return new RedirectResponse($this->generateUrl($referer));
 
             }
         }
-        if (count($violations) < 0) {
-            return true;
-        }
+        return true;
     }
 
 }

@@ -23,4 +23,5 @@ Website\PromotionsBundle\Entity\Promotion:
             nullable: true
             column: created_at
 
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [onPrePersistCreated]

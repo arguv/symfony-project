@@ -20,7 +20,6 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $session = new Session();
         try {
             $roleUsers = [];
             $userManager = $this->container->get('fos_user.user_manager');
@@ -35,7 +34,7 @@ class UserController extends Controller
                 'users' => $roleUsers,
             ));
         } catch (\Exception $e) {
-            $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+            $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
             return new RedirectResponse($this->generateUrl('users_index'));
         }
     }
@@ -46,7 +45,6 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $session = new Session();
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
 
@@ -55,20 +53,16 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->validationForm($data['fos_user_user']);
-            $em->getConnection()->beginTransaction();
             try {
                 $user->setUsername($data['fos_user_user']['username']);
                 $user->setEmail($data['fos_user_user']['email']);
                 $em->persist($user);
                 $em->flush();
-                $em->getConnection()->commit();
 
-                $session->getFlashBag()->add('success', 'Successfuly updated');
+                $this->get('session')->getFlashBag()->add('success', 'Successfuly updated');
                 return new RedirectResponse($this->generateUrl('users_index'));
             } catch (\Exception $e) {
-                $em->getConnection()->rollback();
-                $em->close();
-                $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+                $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
                 return new RedirectResponse($this->generateUrl('users_index'));
             }
         }
@@ -85,11 +79,8 @@ class UserController extends Controller
      */
     private function validationForm($data)
     {
-        $session = new Session();
         $validator = $this->get('validator');
-
         $input = ['username' => $data["username"], 'email' => $data["email"]];
-
         $constraints = new Assert\Collection([
             'username' => [new Assert\Type('string')],
             'email' => [new Assert\Email()],
@@ -106,7 +97,7 @@ class UserController extends Controller
                     $violation->getMessage());
             }
 
-            $session->getFlashBag()->add('error', $errorMessages);
+            $this->get('session')->getFlashBag()->add('error', $errorMessages);
             return new RedirectResponse($this->generateUrl('users_edit'));
 
         } else {

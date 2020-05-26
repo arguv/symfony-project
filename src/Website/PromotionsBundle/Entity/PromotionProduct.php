@@ -141,4 +141,12 @@ class PromotionProduct
     {
         return $this->product;
     }
+
+    /**
+     * @PrePersist
+     */
+    public function onPrePersistCreated()
+    {
+        $this->createdAt = new \DateTime();
+    }
 }

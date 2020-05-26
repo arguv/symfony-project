@@ -22,7 +22,6 @@ class StatisticsController extends Controller
      */
     public function indexAction()
     {
-        $session = new Session();
         $em = $this->getDoctrine()->getManager();
         try {
             $statistics = $em->getRepository('WebsiteStatisticsBundle:Statistic')->findBy(array(),array('createdAt' => 'DESC'));
@@ -31,7 +30,7 @@ class StatisticsController extends Controller
                 'statistics' => $statistics,
             ));
         } catch (\Exception $e) {
-            $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+            $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
             return new RedirectResponse($this->generateUrl('statistic_index'));
         }
     }
@@ -42,7 +41,6 @@ class StatisticsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $session = new Session();
         $statistic = new Statistic();
         $em = $this->getDoctrine()->getManager();
 
@@ -51,7 +49,6 @@ class StatisticsController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->validationForm($request);
-            $em->getConnection()->beginTransaction();
             try {
                 $datetime = \DateTime::createFromFormat('Y-m-d', $request->request->get('website_statisticsbundle_statistic')["createdAt"]);
                 $datetime->format('Y-m-d H:i:s');
@@ -59,15 +56,11 @@ class StatisticsController extends Controller
                 $statistic->setCreatedAt($datetime);
                 $em->persist($statistic);
                 $em->flush();
-                $em->getConnection()->commit();
 
-                $session->getFlashBag()->add('success', 'Successfuly created');
+                $this->get('session')->getFlashBag()->add('success', 'Successfuly created');
                 return new RedirectResponse($this->generateUrl('statistic_index'));
             } catch (\Exception $e) {
-                $em->getConnection()->rollback();
-                $em->close();
-
-                $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+                $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
                 return new RedirectResponse($this->generateUrl('statistic_new'));
             }
         }
@@ -83,16 +76,13 @@ class StatisticsController extends Controller
      */
     public function editAction(Request $request, Statistic $statistic)
     {
-        $session = new Session();
         $em = $this->getDoctrine()->getManager();
-
         $statistic = $em->getRepository('WebsiteStatisticsBundle:Statistic')->findOneById($statistic->getId());
         $editForm = $this->createForm('Website\StatisticsBundle\Form\StatisticType', $statistic);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->validationForm($request);
-            $em->getConnection()->beginTransaction();
             try {
                 $datetime = \DateTime::createFromFormat('Y-m-d', $request->request->get('website_statisticsbundle_statistic')["createdAt"]);
                 $datetime->format('Y-m-d H:i:s');
@@ -100,16 +90,11 @@ class StatisticsController extends Controller
                 $statistic->setCreatedAt($datetime);
                 $em->persist($statistic);
                 $em->flush();
-                $em->getConnection()->commit();
 
-                $session->getFlashBag()->add('success', 'Successfuly updated');
+                $this->get('session')->getFlashBag()->add('success', 'Successfuly updated');
                 return new RedirectResponse($this->generateUrl('statistic_index'));
             } catch (\Exception $e) {
-
-                $em->getConnection()->rollback();
-                $em->close();
-
-                $session->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
+                $this->get('session')->getFlashBag()->add('error', 'Error Message: ' . $e->getMessage());
                 return new RedirectResponse($this->generateUrl('statistic_new'));
             }
         }
@@ -125,9 +110,7 @@ class StatisticsController extends Controller
      */
     private function validationForm($request)
     {
-        $session = new Session();
         $validator = $this->get('validator');
-
         $datas = $request->request->get("website_statisticsbundle_statistic");
         $datetime = \DateTime::createFromFormat('Y-m-d', $datas["createdAt"]);
         $datetime->format('Y-m-d H:i:s');
@@ -152,9 +135,8 @@ class StatisticsController extends Controller
             }
 
             $referer = $request->headers->get('referer');
-            $session->getFlashBag()->add('error', $errorMessages);
+            $this->get('session')->getFlashBag()->add('error', $errorMessages);
             return new RedirectResponse($referer);
-
         } else {
             return true;
         }

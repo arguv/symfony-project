@@ -2,7 +2,7 @@
 
 namespace Website\StatisticsBundle\Repository;
 
-use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\Query;
 
 
 /**
@@ -15,7 +15,6 @@ class StatisticRepository extends \Doctrine\ORM\EntityRepository
     * @param $id
     * @param $startdate
     * @param $enddate
-    * @return array|null
     */
     public function getStatisticsByIdAndDate($id, $startdate, $enddate = null)
     {
@@ -34,15 +33,15 @@ class StatisticRepository extends \Doctrine\ORM\EntityRepository
         );
 
         if (null != $enddate) {
-            $query->setParameters(array('id' => $id, 'startdate' => $startdate, 'enddate' => $enddate ));
+            $query->setParameters(array('id' => $id, 'startdate' => $startdate, 'enddate' => $enddate));
         } else {
-            $query->setParameters(array('id' => $id, 'startdate' => $startdate ));
+            $query->setParameters(array('id' => $id, 'startdate' => $startdate));
         }
 
         try {
-            return $query->getScalarResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
-            return null;
+            return $query->getResult();
+        } catch (\Doctrine\ORM\Query\QueryException $e) {
+            return ['error' => 'Code ' . $e->getCode() . ' Message '. $e->getMessage() . ' Line ' . $e->getLine()];
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace Website\PromotionsBundle\Repository;
 
 use Doctrine\ORM\Query;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 
 /**
@@ -25,7 +24,7 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
 
         $em = $this->getEntityManager();
         $query = $em->createQuery("
-              SELECT prm, prd, pp
+              SELECT prm
               FROM 'Website\PromotionsBundle\Entity\Promotion' AS prm 
               INNER JOIN 'Website\PromotionsBundle\Entity\PromotionProduct' AS pp WITH prm.id = pp.promotion
               LEFT JOIN 'Website\PromotionsBundle\Entity\Product' AS prd WITH prd.id = pp.product
@@ -39,9 +38,9 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
         }
 
         try {
-            return $query->getScalarResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
-            return null;
+            return $query->getResult();
+        } catch (\Doctrine\ORM\Query\QueryException $e) {
+            return ['error' => 'Code ' . $e->getCode() . ' Message '. $e->getMessage() . ' Line ' . $e->getLine()];
         }
     }
 }

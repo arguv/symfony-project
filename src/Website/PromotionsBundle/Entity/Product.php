@@ -2,6 +2,7 @@
 
 namespace Website\PromotionsBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\BrowserKit\Request;
 
 
@@ -128,5 +129,13 @@ class Product
     public function getPromotionproduct()
     {
         return $this->promotionproduct;
+    }
+
+    /**
+     * @PrePersist
+     */
+    public function onPrePersistCreated()
+    {
+        $this->createdAt = new \DateTime();
     }
 }
